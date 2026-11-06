@@ -1,18 +1,18 @@
 <?php
 /**
- * Главный файл темы - перенаправляет все на 404
+ * Main theme file: sends everything to the 404 page
  */
 
-// Предотвращаем прямой доступ
+// Prevent direct access
 if (!defined('ABSPATH')) {
     exit;
 }
 
-// Устанавливаем 404 статус
+// Set the 404 status
 status_header(404);
 nocache_headers();
 
-// Подключаем 404 страницу
+// Load the 404 page
 get_template_part('404');
 exit;
 ?>

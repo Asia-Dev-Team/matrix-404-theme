@@ -1,25 +1,25 @@
 <?php
 /**
- * Шаблон 404 страницы
+ * 404 page template
  */
 
-// Предотвращаем прямой доступ
+// Prevent direct access
 if (!defined('ABSPATH')) {
     exit;
 }
 
-// Устанавливаем правильные заголовки
+// Send the correct headers
 status_header(404);
 nocache_headers();
 
-// Выводим содержимое 404.html
+// Output the contents of 404.html
 $html_file = get_template_directory() . '/404.html';
 
 if (file_exists($html_file)) {
-    // Читаем и выводим содержимое HTML файла
+    // Read and output the HTML file
     echo file_get_contents($html_file);
 } else {
-    // Запасной вариант если файл не найден
+    // Fallback if the file is missing
     echo '<!DOCTYPE html>';
     echo '<html><head><title>404 Not Found</title></head>';
     echo '<body><h1>404 - Page Not Found</h1></body></html>';

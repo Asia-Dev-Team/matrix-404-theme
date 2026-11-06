@@ -1,21 +1,21 @@
 <?php
 /**
- * Функции темы
+ * Theme functions
  */
 
-// Предотвращаем прямой доступ
+// Prevent direct access
 if (!defined('ABSPATH')) {
     exit;
 }
 
-// Принудительно перенаправляем все запросы на 404
+// Force a 404 for every request
 function force_404_for_all() {
-    // Исключаем админку и ajax запросы
+    // Skip admin and AJAX requests
     if (is_admin() || wp_doing_ajax()) {
         return;
     }
     
-    // Устанавливаем 404 для всех фронтенд запросов
+    // Set 404 for all front-end requests
     global $wp_query;
     $wp_query->set_404();
     status_header(404);
@@ -23,9 +23,9 @@ function force_404_for_all() {
 }
 add_action('template_redirect', 'force_404_for_all', 1);
 
-// Отключаем WordPress функции которые могут мешать
+// Disable WordPress features that could interfere
 function disable_wp_features() {
-    // Отключаем поиск
+    // Disable search
     if (is_search()) {
         global $wp_query;
         $wp_query->set_404();
@@ -34,7 +34,7 @@ function disable_wp_features() {
 }
 add_action('parse_query', 'disable_wp_features');
 
-// Удаляем лишние мета теги
+// Remove extra meta tags
 function remove_wp_meta_tags() {
     remove_action('wp_head', 'wp_generator');
     remove_action('wp_head', 'wlwmanifest_link');
@@ -47,7 +47,7 @@ function remove_wp_meta_tags() {
 }
 add_action('init', 'remove_wp_meta_tags');
 
-// Блокируем REST API если надо раскоментить
+// Block the REST API: uncomment if needed
 //function disable_rest_api($access) {
 //    if (!is_user_logged_in()) {
 //        return new WP_Error('rest_disabled', 'REST API disabled', array('status' => 404));
